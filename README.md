@@ -1,106 +1,70 @@
-## Key Points
+# Getting Started with Create React App
 
-#### Stale Time : when data need to be refetch. By default stale time is 0ms.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-#### gcTime : how long to keep the data that might be used later.
+## Available Scripts
 
-- query goes into "cold storage" if there is no active useQuery.
-- cache data expires after gcTime (default : 5 minutes).
-- how long it's been since the last active useQUery.
+In the project directory, you can run:
 
-- cache contains backup data to display while fetching
+### `npm start`
 
-#### Display data
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-- Fresh and in cache : display cached data,no refetch.
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-- stale and in cache : display cached data,refetch.
+### `npm test`
 
-- not in cache : nothing to display during refetch.
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### Dependencies
+### `npm run build`
 
-- Every query use the same key (['comment'])
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-- Data for queries with known keys only re-fetched upon trigger .
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-##### Example Triggers
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-- component remount
-- window re-focus
-- running re-fetch function
-- automated re-fetch
-- query invalidation
+### `npm run eject`
 
-#### isFetching vs isLoading
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-##### isFetching
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-- the async query function hasn't yet resolved.
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-##### isLoading
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-- no cached data, plus isFetching
+## Learn More
 
-## Mutation
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-- making a network call that changes data on the server.
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-#### useMutation
+### Code Splitting
 
-- return mutate function
-- doesn't need query key
-- isLoading but no isFetching
-- by default no retires (but can configure)
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-#### Infinite Scrolling
+### Analyzing the Bundle Size
 
-- track current page in component state
-- new query updates page number
-- useInfiniteQuery tracks next query
-- next query is returned as part of the data
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-#### Shape of useInfiniteQuery Data
+### Making a Progressive Web App
 
-- shape of data different than useQuery
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-- Object with two properties :
+### Advanced Configuration
 
-  - page
-  - pageParams
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-- Every query has its own elements in the page array .
-- pageParams tracks the key of queries that have been retrieved
-  - rarely used
+### Deployment
 
-##### useInfiniteQuery Syntax
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-- pageParam is a parameter passed to the query function
+### `npm run build` fails to minify
 
-```
-useInfiniteQuery({
-
-    queryKey : ['sw-people']
-
-    queryFn:({pageParam=initialUrl})=>fetchUrl(pageParam)
-
-  })
-```
-
-- fetchNextPage
-- function call when the user need more data
-
-- hasNextPage
-  - based on the return value of getNextPageParams
-  - if undefined, no more data
-- isFetchingNextPage
-  - for displaying a loader
-
-## Lazy Spa
-
-- centralized fetching indicator/error handling
-- re-fetch data
-- integrating with auth
-- dependent queries
-- testing
-- more examples of useQUery,mutation,pagination,prefect
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
