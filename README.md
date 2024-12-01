@@ -1,70 +1,54 @@
-# Getting Started with Create React App
+## Key Points
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### Stale Time : when data need to be refetch. By default stale time is 0ms.
 
-## Available Scripts
+#### gcTime : how long to keep the data that might be used later.
 
-In the project directory, you can run:
+- query goes into "cold storage" if there is no active useQuery.
+- cache data expires after gcTime (default : 5 minutes).
+- how long it's been since the last active useQUery.
 
-### `npm start`
+- cache contains backup data to display while fetching
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#### Display data
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Fresh and in cache : display cached data,no refetch.
 
-### `npm test`
+- stale and in cache : display cached data,refetch.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- not in cache : nothing to display during refetch.
 
-### `npm run build`
+### Dependencies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Every query use the same key (['comment'])
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Data for queries with known keys only re-fetched upon trigger .
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+##### Example Triggers
 
-### `npm run eject`
+- component remount
+- window re-focus
+- running re-fetch function
+- automated re-fetch
+- query invalidation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### isFetching vs isLoading
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+##### isFetching
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- the async query function hasn't yet resolved.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+##### isLoading
 
-## Learn More
+- no cached data, plus isFetching
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Mutation
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- making a network call that changes data on the server.
 
-### Code Splitting
+#### useMutation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- return mutate function
+- doesn't need query key
+- isLoading but no isFetching
+- by default no retires (but can configure)
