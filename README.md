@@ -96,4 +96,11 @@ useInfiniteQuery({
 - isFetchingNextPage
   - for displaying a loader
 
-## The Flow
+## Lazy Spa
+
+- centralized fetching indicator/error handling
+- re-fetch data
+- integrating with auth
+- dependent queries
+- testing
+- more examples of useQUery,mutation,pagination,prefect
