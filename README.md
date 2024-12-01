@@ -52,3 +52,48 @@
 - doesn't need query key
 - isLoading but no isFetching
 - by default no retires (but can configure)
+
+#### Infinite Scrolling
+
+- track current page in component state
+- new query updates page number
+- useInfiniteQuery tracks next query
+- next query is returned as part of the data
+
+#### Shape of useInfiniteQuery Data
+
+- shape of data different than useQuery
+
+- Object with two properties :
+
+  - page
+  - pageParams
+
+- Every query has its own elements in the page array .
+- pageParams tracks the key of queries that have been retrieved
+  - rarely used
+
+##### useInfiniteQuery Syntax
+
+- pageParam is a parameter passed to the query function
+
+```
+useInfiniteQuery({
+
+    queryKey : ['sw-people']
+
+    queryFn:({pageParam=initialUrl})=>fetchUrl(pageParam)
+
+  })
+```
+
+- fetchNextPage
+- function call when the user need more data
+
+- hasNextPage
+  - based on the return value of getNextPageParams
+  - if undefined, no more data
+- isFetchingNextPage
+  - for displaying a loader
+
+## The Flow
